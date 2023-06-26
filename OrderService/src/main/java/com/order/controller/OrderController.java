@@ -25,15 +25,7 @@ public class OrderController {
 
 	@PostMapping("/placeOrder")
 	public TransactionResponse saveOrder(@RequestBody TransactionRequest transactionRequest) {
-		
-		Order order = transactionRequest.getOrder();
-		Order saveOrder = orderService.saveOrder(order);
-		TransactionResponse t = new TransactionResponse();
-		if(saveOrder != null) {
-			t.setMessage("success");
-		}
-			t.setMessage("fail");
-		return t;
+		return orderService.saveOrder(transactionRequest);
 	}
 	
 	@GetMapping("/placeOrder")

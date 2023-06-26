@@ -1,5 +1,6 @@
 package com.order.util;
 
+import com.order.dto.Payment;
 import com.order.entity.Order;
 
 import lombok.AllArgsConstructor;
@@ -15,6 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TransactionRequest {
 
+	private Order order;
+	private Payment payment;
+	
 	public Order getOrder() {
 		return order;
 	}
@@ -23,7 +27,14 @@ public class TransactionRequest {
 		this.order = order;
 	}
 
-	private Order order;
-	//private Payment payment;
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	
+	
 	
 }
