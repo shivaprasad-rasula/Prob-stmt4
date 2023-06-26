@@ -1,0 +1,10 @@
+package com.payment.util;
+
+import java.util.List;
+
+import com.payment.entity.Payment;
+
+public class ResponseEntity {
+
+	private List<Payment> paymentList;
+}

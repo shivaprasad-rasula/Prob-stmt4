@@ -1,0 +1,6 @@
+package com.payment.util;
+
+public class ResponseEntity {
+
+	private List<Payment> paymentList;
+}
