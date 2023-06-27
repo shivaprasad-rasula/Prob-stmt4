@@ -2,6 +2,13 @@ package com.order.util;
 
 import com.order.entity.Order;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TransactionResponse {
 
 	
@@ -10,6 +17,9 @@ public class TransactionResponse {
 	private String transactionId;
 	private String message;
 
+	public TransactionResponse() {
+		// TODO Auto-generated constructor stub
+	}
 	
 
 	public TransactionResponse(Order order, double amount, String transactionId, String message) {
