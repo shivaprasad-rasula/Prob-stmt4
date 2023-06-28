@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.event.config.Config;
 import com.event.entity.Mail;
 import com.event.entity.User;
 
@@ -27,15 +28,20 @@ public class MailServiceImpl implements MailService {
 	@Autowired
 	RestTemplate restTemplate;
 
+	@Autowired
+	Config config;
+	/*
+	 * Sending the mail to all the users available inthe Userstable with service
+	 * name and url details
+	 */
+	
 	@Override
 	public String sendMail(Mail mails) {
 		// Recipient's email ID needs to be mentioned.
 		//String to = "narani0126@gmail.com";
+		String responseMgs="";
 		String from = "serveralertnorelplay@gmail.com";
-		final String username = "erveralertnorelplay";// change accordingly
-		final String password = "qobglvwlgtdyvtfa";// change accordingly
 
-		String host = "localhost"; // or IP address
 		Properties props = new Properties();
 		props.put("mail.smtp.starttls.required", "true");
 		props.put("mail.smtp.ssl.protocols", "TLSv1.2");
@@ -45,18 +51,17 @@ public class MailServiceImpl implements MailService {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.starttls.required", "true");
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		props.put("mail.user", from);
-		props.put("mail.password", password);
+		props.put("mail.user", config.getFrom());
+		props.put("mail.password", config.getMailPassword());
 
 		// Get the Session object.
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(from, password);
+				return new PasswordAuthentication(from, config.getMailPassword());
 			}
 		});
 
-		//User forObject = restTemplate.postForObject("http://localhost:8897/user/users",User.class,Map<String,String> m);
-		ResponseEntity<User[]> response = restTemplate.getForEntity("http://localhost:8897/user/users",User[].class);
+		ResponseEntity<User[]> response = restTemplate.getForEntity(config.getUserServiceUrl(),User[].class);
 				User[] body = response.getBody();
 		try {
 			List<User> asList = Arrays.asList(body);
@@ -70,17 +75,16 @@ public class MailServiceImpl implements MailService {
 				// Set Subject: header field
 				message.setSubject("Server Down Alert ");
 				// Now set the actual message
-				message.setText("Hello Team,"+System.lineSeparator ()+" please check the service "
-						+mails.getServiceName() +" "
-						+System.lineSeparator ()+" with the Url "+mails.getUrl());
+				message.setText("Hello Team,"+System.lineSeparator ()+" <html> We found that <b>"
+						+mails.getServiceName() +"</b> "
+						+System.lineSeparator ()+" down(Not working as expected) with the following URL <b>"+mails.getUrl()+"</b> </html>");
 				// Send message
 				Transport.send(message);
-				System.out.println("Sent message successfully....");
+				responseMgs = "Sent message successfully....";
 			}
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-		return "";
+		return responseMgs;
 	}
-	
 }
