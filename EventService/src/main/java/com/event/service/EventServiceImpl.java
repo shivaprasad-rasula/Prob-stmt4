@@ -1,6 +1,5 @@
 package com.event.service;
 
-import java.io.IOException;
 import java.rmi.ConnectException;
 import java.util.HashMap;
 import java.util.Map;
