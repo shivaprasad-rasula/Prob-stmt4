@@ -9,36 +9,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ServerResponse {
 	private String serverName;
-	private int serverstatus;
-	private String appUrl;
-	
-	
-	
-	@Override
-	public String toString() {
-		return "ServerResponse [serverName=" + serverName + ", serverstatus=" + serverstatus + ", appUrl=" + appUrl
-				+ "]";
-	}
+	private int status;
+	private String applicationUrl;
 	public String getServerName() {
 		return serverName;
 	}
 	public void setServerName(String serverName) {
 		this.serverName = serverName;
 	}
-	
-	
-	public int getServerstatus() {
-		return serverstatus;
+	public int getStatus() {
+		return status;
 	}
-	public void setServerstatus(int serverstatus) {
-		this.serverstatus = serverstatus;
+	public void setStatus(int status) {
+		this.status = status;
 	}
-	public String getAppUrl() {
-		return appUrl;
+	public String getApplicationUrl() {
+		return applicationUrl;
 	}
-	public void setAppUrl(String appUrl) {
-		this.appUrl = appUrl;
+	public void setApplicationUrl(String applicationUrl) {
+		this.applicationUrl = applicationUrl;
 	}
-	
+	@Override
+	public String toString() {
+		return "ServerResponse [serverName=" + serverName + ", status=" + status + ", applicationUrl=" + applicationUrl
+				+ "]";
+	}
+		
 	
 }

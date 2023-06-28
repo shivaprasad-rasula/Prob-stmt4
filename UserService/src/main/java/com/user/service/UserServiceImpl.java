@@ -3,6 +3,7 @@ package com.user.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.user.entity.User;
@@ -17,7 +18,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String login(User user) {
 		String response ="";
-		if(user.getUsername().equals(user.getPassword())) {
+		String username = user.getUsername();
+		String password = user.getPassword();
+		User findUserByuserNameAndpassword = userRepository.findUserByuserNameAndpassword(username,password);	
+		if(findUserByuserNameAndpassword!=null) {
 			response ="success";
 		}else {
 			response = "fail";

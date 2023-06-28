@@ -3,6 +3,7 @@ package com.user.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.user.entity.ServerInfo;
 import com.user.entity.User;
 import com.user.service.UserService;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -42,13 +43,6 @@ public class UserController {
 		return users;
 	}
 	
-	@PostMapping("/mail")
-	public String sendMail(@RequestBody ServerInfo ServerInfo) {
-		List<User> users = userService.getAllUsers();
-		
-		// main code
-		
-		return "";
-	}
+	
 	
 }
